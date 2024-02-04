@@ -14,5 +14,5 @@ document.addEventListener('mousedown', (event) => {
 });
 
 const findIssueKey = (node) => {
-  return node?.closest('.issue_view_permalink_button_wrapper')?.previousElementSibling?.querySelector('li a span')?.innerHTML;
+  return node?.closest('.issue_view_permalink_button_wrapper')?.previousElementSibling?.textContent;
 }
