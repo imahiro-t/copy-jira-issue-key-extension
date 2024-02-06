@@ -1,7 +1,7 @@
 {
   "name": "Copy Jira Issue Key to Clipboard",
   "description": "Copy Jira Issue Key to Clipboard instead of Jira URL on Shift + Click",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "manifest_version": 3,
   "content_scripts": [
     {
