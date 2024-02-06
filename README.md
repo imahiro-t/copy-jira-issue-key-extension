@@ -1,6 +1,11 @@
 # Copy Jira Issue Key to Clipboard
 
-Copy Jira Issue Key to Clipboard instead of Jira URL on Shift + Click.
+Copy Jira Issue Key to Clipboard instead of Jira Link URL on Shift + Click.
+Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift + Alt(Cmd) + Click.
+
+### 1.1.0
+
+- ✨ Copy Jira Issue Key and Summary to Clipboard on Shift + Alt(Cmd) + Click
 
 ### 1.0.1
 
