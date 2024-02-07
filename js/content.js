@@ -4,11 +4,13 @@ document.addEventListener("mousedown", (event) => {
     const issueSummary = findIssueSummary(event.target);
     if (issueKey && issueSummary) {
       writeToClipboard(`${issueKey}: ${issueSummary}`);
+      event.preventPropagation();
     }
   } else if (event.shiftKey) {
     const issueKey = findIssueKey(event.target);
     if (issueKey) {
       writeToClipboard(issueKey);
+      event.preventPropagation();
     }
   }
 });
