@@ -18,7 +18,7 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
   if (event.key === "Shift") {
     const node = document.querySelector("#BreadcrumbCurrentIssue");
-    if (node) {
+    if (node && srcNode) {
       node.parentNode.replaceChild(srcNode, node);
     }
   }
