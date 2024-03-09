@@ -6,23 +6,47 @@ const dummyNode = document
   ).firstChild;
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Shift") {
+  if (event.key === "Shift" || event.key === "Meta" || event.key === "Alt") {
     const node = document.querySelector("#BreadcrumbCurrentIssue");
     if (node) {
-      node.parentNode.replaceChild(dummyNode, node);
-      srcNode = node;
+      changeColor(
+        event,
+        node.closest(".issue_view_permalink_button_wrapper")?.querySelector("g")
+      );
+      if (event.key === "Shift") {
+        node.parentNode.replaceChild(dummyNode, node);
+        srcNode = node;
+      }
     }
   }
 });
 
 document.addEventListener("keyup", (event) => {
-  if (event.key === "Shift") {
+  if (event.key === "Shift" || event.key === "Meta" || event.key === "Alt") {
     const node = document.querySelector("#BreadcrumbCurrentIssue");
     if (node && srcNode) {
-      node.parentNode.replaceChild(srcNode, node);
+      changeColor(
+        event,
+        node.closest(".issue_view_permalink_button_wrapper")?.querySelector("g")
+      );
+      if (event.key === "Shift") {
+        node.parentNode.replaceChild(srcNode, node);
+      }
     }
   }
 });
+
+const changeColor = (event, g) => {
+  if (g) {
+    if (event.shiftKey && (event.altKey || event.metaKey)) {
+      g.style.color = "mediumseagreen";
+    } else if (event.shiftKey) {
+      g.style.color = "cornflowerblue";
+    } else {
+      g.style.color = "inherit";
+    }
+  }
+};
 
 document.addEventListener("mousedown", (event) => {
   if (event.shiftKey && (event.altKey || event.metaKey)) {
