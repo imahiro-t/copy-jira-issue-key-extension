@@ -3,6 +3,10 @@
 Copy Jira Issue Key to Clipboard instead of Jira Link URL on Shift + Click.
 Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift + Alt(Cmd) + Click.
 
+### 1.2.1
+
+- 💄 change selected color on color mode
+
 ### 1.2.0
 
 - 💄 change color on shift or cmd(alt) + shift
