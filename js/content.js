@@ -38,10 +38,13 @@ document.addEventListener("keyup", (event) => {
 
 const changeColor = (event, g) => {
   if (g) {
+    const colorMode = document
+      .querySelector("html")
+      .getAttribute("data-color-mode");
     if (event.shiftKey && (event.altKey || event.metaKey)) {
-      g.style.color = "mediumseagreen";
+      g.style.color = colorMode === "dark" ? "crimson" : "red";
     } else if (event.shiftKey) {
-      g.style.color = "cornflowerblue";
+      g.style.color = colorMode === "dark" ? "dodgerblue" : "blue";
     } else {
       g.style.color = "inherit";
     }
