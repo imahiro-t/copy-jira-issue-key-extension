@@ -78,5 +78,6 @@ const findIssueKey = (node) => {
 const findIssueSummary = (node) => {
   return node
     .closest("#jira-issue-header")
-    ?.nextElementSibling?.querySelector('[role="presentation"]')?.textContent;
+    ?.nextElementSibling?.querySelector("form")
+    ?.querySelector('[role="presentation"]')?.textContent;
 };
