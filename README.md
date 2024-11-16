@@ -3,6 +3,14 @@
 Copy Jira Issue Key to Clipboard instead of Jira Link URL on Shift + Click.
 Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift + Alt(Cmd) + Click.
 
+### 1.2.4
+
+- 🐛 fix for focus out
+
+### 1.2.3
+
+- 💄 change icon image
+
 ### 1.2.2
 
 - 🐛 fix to retrieve summary
