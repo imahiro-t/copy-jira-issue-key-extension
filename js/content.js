@@ -1,42 +1,56 @@
-let srcNode;
-const dummyNode = document
-  .createRange()
-  .createContextualFragment(
-    '<div id="BreadcrumbCurrentIssue"></div>'
-  ).firstChild;
+let oldUrl = "";
+
+const urlChangeObserver = new MutationObserver(() => {
+  setTimeout(() => {
+    if (oldUrl !== location.href) {
+      window.dispatchEvent(new CustomEvent("urlChange"));
+      oldUrl = location.href;
+    }
+  }, 500);
+});
+
+urlChangeObserver.observe(document.body, {
+  subtree: true,
+  childList: true,
+});
+
+window.addEventListener("urlChange", () => {
+  setTimeout(() => {
+    const node = targetNode();
+    if (node) {
+      node.addEventListener("mouseover", (event) => {
+        changeColor(event);
+      });
+      node.addEventListener("mouseout", (event) => {
+        changeColor(event);
+      });
+      node.addEventListener("mousemove", (event) => {
+        changeColor(event);
+      });
+    }
+  }, 1000);
+});
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Shift" || event.key === "Meta" || event.key === "Alt") {
-    const node = document.querySelector("#BreadcrumbCurrentIssue");
-    if (node) {
-      changeColor(
-        event,
-        node.closest(".issue_view_permalink_button_wrapper")?.querySelector("g")
-      );
-      if (event.key === "Shift") {
-        node.parentNode.replaceChild(dummyNode, node);
-        srcNode = node;
-      }
-    }
+    changeColor(event);
   }
 });
 
 document.addEventListener("keyup", (event) => {
   if (event.key === "Shift" || event.key === "Meta" || event.key === "Alt") {
-    const node = document.querySelector("#BreadcrumbCurrentIssue");
-    if (node && srcNode) {
-      changeColor(
-        event,
-        node.closest(".issue_view_permalink_button_wrapper")?.querySelector("g")
-      );
-      if (event.key === "Shift") {
-        node.parentNode.replaceChild(srcNode, node);
-      }
-    }
+    changeColor(event);
   }
 });
 
-const changeColor = (event, g) => {
+const targetNode = () => {
+  return document
+    .querySelector("#BreadcrumbCurrentIssue")
+    ?.closest(".issue_view_permalink_button_wrapper");
+};
+
+const changeColor = (event) => {
+  const g = targetNode()?.querySelector("g");
   if (g) {
     const colorMode = document
       .querySelector("html")
@@ -67,7 +81,9 @@ document.addEventListener("mousedown", (event) => {
 });
 
 const writeToClipboard = (text) => {
-  navigator.clipboard.writeText(text);
+  setTimeout(() => {
+    navigator.clipboard.writeText(text);
+  }, 500);
 };
 
 const findIssueKey = (node) => {
