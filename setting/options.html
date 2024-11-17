@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatwork Tools</title>
+  <link rel="stylesheet" type="text/css" href="options.css" />
+</head>
+
+<body>
+  <main class="container">
+    <div class="content-area">
+      <div class="content">
+        <h2>Atlassian Setting</h2>
+        <h4>Hostname</h4>
+        <input type="text" id="host" />
+        <h4>Email</h4>
+        <input type="text" id="email" />
+        <h4>API Token</h4>
+        <input type="password" id="apiToken" />
+        <h2>Story Issues to Confluence Pages</h2>
+        <h3>Jira Setting</h3>
+        <h4>Project Key</h4>
+        <input type="text" id="projectKey" />
+        <h3>Confluence Setting</h3>
+        <h4>Space Key</h4>
+        <input type="text" id="spaceKey" />
+        <h4>Template ID</h4>
+        <input type="text" id="templateId" />
+        <h4>Parent ID</h4>
+        <input type="text" id="parentId" />
+      </div>
+    </div>
+    <button id="save">Save</button>
+    <div id="status"></div>
+    <script src="options.js"></script>
+  </main>
+</body>
+
+</html>
