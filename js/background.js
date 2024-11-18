@@ -212,6 +212,50 @@ const createPage = async (email, apiToken, host, body) => {
     body: JSON.stringify(body),
   });
   if (response.status === 200) {
+    const json = await response.json();
+    const pageId = json.id;
+    try {
+      const propertyResponse = await fetch(
+        `https://${host}/wiki/api/v2/pages/${pageId}/properties`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: authorizationHeaderValue(email, apiToken),
+          },
+        }
+      );
+      const propertyId = (await propertyResponse.json()).results?.find(
+        (property) => property.key === "editor"
+      )?.id;
+      const body = {
+        key: "editor",
+        value: "v2",
+      };
+      if (propertyId) {
+        await fetch(
+          `https://${host}/wiki/api/v2/pages/${pageId}/properties/${propertyId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: authorizationHeaderValue(email, apiToken),
+            },
+          }
+        );
+      }
+      await fetch(`https://${host}/wiki/api/v2/pages/${pageId}/properties`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: authorizationHeaderValue(email, apiToken),
+        },
+        body: JSON.stringify(body),
+      });
+    } catch (e) {}
     return {
       status: "success",
     };
