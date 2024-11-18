@@ -3,6 +3,10 @@
 Copy Jira Issue Key to Clipboard instead of Jira Link URL on Shift + Click.
 Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift + Alt(Cmd) + Click.
 
+### 1.3.1
+
+- 🐛 fix to create page by new editor mode
+
 ### 1.3.0
 
 - ✨ Create confluence page for Current Sprint
