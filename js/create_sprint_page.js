@@ -117,8 +117,10 @@ const createSprintPage = () => {
       const { issues, sprint, template } = JSON.parse(response.result);
       if (template) {
         const title = replaceTag(template.title ?? "", sprint);
-        const body = replaceTag(template.body ?? "", sprint);
-        const content = createContent(body, issues);
+        const content = replaceTag(
+          createContent(template.body ?? "", issues, sprint),
+          sprint
+        );
         chrome.runtime.sendMessage(
           {
             type: "create_sprint_page",
@@ -168,9 +170,31 @@ const formatDate = (date) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-const createContent = (body, issues) => {
+const createContent = (body, issues, sprint) => {
   var div = document.createElement("div");
   div.innerHTML = body;
+  const acs = div.querySelectorAll(
+    "ac\\:structured-macro[ac\\:name='info'],ac\\:structured-macro[ac\\:name='tip'],ac\\:structured-macro[ac\\:name='note'],ac\\:structured-macro[ac\\:name='warning'],ac\\:structured-macro[ac\\:name='panel']"
+  );
+  acs.forEach((ac) => {
+    if (
+      ac.firstChild?.nodeName === "AC:RICH-TEXT-BODY" &&
+      ac.firstChild?.lastChild?.nodeName === "P" &&
+      ac.firstChild?.lastChild?.textContent.includes(TAG.SPRINT_GOAL)
+    ) {
+      const goals = sprint.goal.split("\n");
+      goals.forEach((goal) => {
+        const clonedAc = ac.cloneNode(true);
+        clonedAc.firstChild.lastChild.textContent =
+          clonedAc.firstChild.lastChild.textContent.replaceAll(
+            TAG.SPRINT_GOAL,
+            goal
+          );
+        ac.parentNode.insertBefore(clonedAc, ac);
+      });
+      ac.parentNode.removeChild(ac);
+    }
+  });
   const tbodys = div.querySelectorAll("tbody");
   tbodys.forEach((tbody) => {
     let containedTr = null;
