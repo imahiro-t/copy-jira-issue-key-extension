@@ -3,6 +3,10 @@
 Copy Jira Issue Key to Clipboard instead of Jira Link URL on Shift + Click.
 Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift + Alt(Cmd) + Click.
 
+### 1.3.3
+
+- 🐛 fix to detect button
+
 ### 1.3.2
 
 - ✨ Implemented display of line-separated goals in split information panels✨ Implemented display of line-separated goals in split information panels
