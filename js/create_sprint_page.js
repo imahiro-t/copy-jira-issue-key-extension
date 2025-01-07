@@ -73,7 +73,7 @@ const initCreateSprintPageButton = () => {
       if (!sprintDiv) return;
       const nextButton =
         sprintDiv.parentNode?.parentNode?.parentNode?.nextSibling?.lastChild
-          ?.lastChild;
+          ?.firstChild?.nextSibling;
       if (!nextButton) return;
       const newNode = document.createElement("button");
       newNode.classList = nextButton.classList;
