@@ -67,43 +67,44 @@ const initCreateSprintPageButton = () => {
     (response) => {
       const { sprint } = JSON.parse(response.result);
       if (!sprint) return;
-      const sprintDiv = Array.from(document.querySelectorAll("div")).find(
-        (el) => el.textContent === sprint.name
-      );
-      if (!sprintDiv) return;
-      const nextButton =
-        sprintDiv.parentNode?.parentNode?.parentNode?.nextSibling?.lastChild
-          ?.firstChild?.nextSibling;
-      if (!nextButton) return;
-      const newNode = document.createElement("button");
-      newNode.classList = nextButton.classList;
-      newNode.setAttribute("type", "button");
-      newNode.setAttribute("id", "CreateSprintPageButton");
-      newNode.style.marginRight = "8px";
-      newNode.addEventListener("click", () => {
-        createSprintPage();
-      });
-      const newChildNode = document.createElement("span");
-      newChildNode.classList = nextButton.lastChild.classList;
-      const svgNode = htmlStringToNode(
-        `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368" style="">
-        <g fill="currentcolor">
-        <path d="M320-160q-33 0-56.5-23.5T240-240v-120h120v-90q-35-2-66.5-15.5T236-506v-44h-46L60-680q36-46 89-65t107-19q27 0 52.5 4t51.5 15v-55h480v520q0 50-35 85t-85 35H320Zm120-200h240v80q0 17 11.5 28.5T720-240q17 0 28.5-11.5T760-280v-440H440v24l240 240v56h-56L510-514l-8 8q-14 14-29.5 25T440-464v104ZM224-630h92v86q12 8 25 11t27 3q23 0 41.5-7t36.5-25l8-8-56-56q-29-29-65-43.5T256-684q-20 0-38 3t-36 9l42 42Zm376 350H320v40h286q-3-9-4.5-19t-1.5-21Zm-280 40v-40 40Z"></path>
-        </g>
-        </svg>`
-      );
-      newChildNode.appendChild(svgNode);
-      newNode.appendChild(newChildNode);
-      nextButton.parentNode?.insertBefore(newNode, nextButton);
+      createSprintPageButton();
     }
   );
 };
+
+const createSprintPageButton = () => {
+  const buttontDiv = Array.from(document.querySelector("main")?.querySelectorAll("div")).find(
+    (el) => el.role === "presentation"
+  );
+  if (!buttontDiv) return;
+  const newButtonDiv = buttontDiv.cloneNode(false);
+  buttontDiv.parentNode?.insertBefore(newButtonDiv, buttontDiv);
+  const newButton = document.createElement("button");
+  newButton.classList = buttontDiv?.firstChild?.classList;
+  newButton.setAttribute("id", "CreateSprintPageButton");
+  newButton.addEventListener("click", () => {
+    createSprintPage();
+  });
+  const newChildNode = document.createElement("span");
+  newChildNode.classList = buttontDiv?.firstChild?.lastChild?.classList;
+  const svgNode = htmlStringToNode(
+    `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#48752C" style="">
+    <g fill="currentcolor">
+    <path d="M320-160q-33 0-56.5-23.5T240-240v-120h120v-90q-35-2-66.5-15.5T236-506v-44h-46L60-680q36-46 89-65t107-19q27 0 52.5 4t51.5 15v-55h480v520q0 50-35 85t-85 35H320Zm120-200h240v80q0 17 11.5 28.5T720-240q17 0 28.5-11.5T760-280v-440H440v24l240 240v56h-56L510-514l-8 8q-14 14-29.5 25T440-464v104ZM224-630h92v86q12 8 25 11t27 3q23 0 41.5-7t36.5-25l8-8-56-56q-29-29-65-43.5T256-684q-20 0-38 3t-36 9l42 42Zm376 350H320v40h286q-3-9-4.5-19t-1.5-21Zm-280 40v-40 40Z"></path>
+    </g>
+    </svg>`
+  );
+  newChildNode.appendChild(svgNode);
+  newButton.appendChild(newChildNode);
+  newButtonDiv.appendChild(newButton);
+}
 
 const htmlStringToNode = (str) => {
   return document.createRange().createContextualFragment(str).firstChild;
 };
 
 const createSprintPage = () => {
+  document.querySelector("#CreateSprintPageButton").disabled = true;
   chrome.runtime.sendMessage(
     {
       type: "get_info_to_create",
@@ -133,6 +134,7 @@ const createSprintPage = () => {
             content: content,
           },
           (response) => {
+            document.querySelector("#CreateSprintPageButton").disabled = false;
             if (response.status === "success") {
               window.alert("Sprint page successfully created.");
             } else {
