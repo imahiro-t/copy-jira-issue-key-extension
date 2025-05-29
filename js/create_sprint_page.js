@@ -73,30 +73,48 @@ const initCreateSprintPageButton = () => {
 };
 
 const createSprintPageButton = () => {
-  const buttontDiv = Array.from(document.querySelector("main")?.querySelectorAll("div")).find(
-    (el) => el.role === "presentation"
-  );
-  if (!buttontDiv) return;
-  const newButtonDiv = buttontDiv.cloneNode(false);
-  buttontDiv.parentNode?.insertBefore(newButtonDiv, buttontDiv);
-  const newButton = document.createElement("button");
-  newButton.classList = buttontDiv?.firstChild?.classList;
-  newButton.setAttribute("id", "CreateSprintPageButton");
-  newButton.addEventListener("click", () => {
-    createSprintPage();
-  });
-  const newChildNode = document.createElement("span");
-  newChildNode.classList = buttontDiv?.firstChild?.lastChild?.classList;
-  const svgNode = htmlStringToNode(
-    `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#48752C" style="">
-    <g fill="currentcolor">
-    <path d="M320-160q-33 0-56.5-23.5T240-240v-120h120v-90q-35-2-66.5-15.5T236-506v-44h-46L60-680q36-46 89-65t107-19q27 0 52.5 4t51.5 15v-55h480v520q0 50-35 85t-85 35H320Zm120-200h240v80q0 17 11.5 28.5T720-240q17 0 28.5-11.5T760-280v-440H440v24l240 240v56h-56L510-514l-8 8q-14 14-29.5 25T440-464v104ZM224-630h92v86q12 8 25 11t27 3q23 0 41.5-7t36.5-25l8-8-56-56q-29-29-65-43.5T256-684q-20 0-38 3t-36 9l42 42Zm376 350H320v40h286q-3-9-4.5-19t-1.5-21Zm-280 40v-40 40Z"></path>
-    </g>
-    </svg>`
-  );
-  newChildNode.appendChild(svgNode);
-  newButton.appendChild(newChildNode);
-  newButtonDiv.appendChild(newButton);
+  const targetButton = document.querySelector('[data-testid="insights-show-insights-button.ui.insights-button"]');
+  if (targetButton) {
+    const newButton = targetButton.cloneNode(false);
+    targetButton.parentNode?.insertBefore(newButton, targetButton);
+    newButton.setAttribute("id", "CreateSprintPageButton");
+    newButton.setAttribute("data-testid", "create-sprint-page-button");
+    newButton.addEventListener("click", () => {
+      createSprintPage();
+    });
+    const newChildNode = document.createElement("span");
+    newChildNode.classList = targetButton?.firstChild?.classList;
+    const svgNode = htmlStringToNode(
+      `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#48752C"><path d="M240-400h122l200-200q9-9 13.5-20.5T580-643q0-11-5-21.5T562-684l-36-38q-9-9-20-13.5t-23-4.5q-11 0-22.5 4.5T440-722L240-522v122Zm280-243-37-37 37 37ZM300-460v-38l101-101 20 18 18 20-101 101h-38Zm121-121 18 20-38-38 20 18Zm26 181h273v-80H527l-80 80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>`
+    );
+    newChildNode.appendChild(svgNode);
+    newButton.appendChild(newChildNode);
+  } else {
+    const buttontDiv = Array.from(document.querySelector("main")?.querySelectorAll("div")).find(
+      (el) => el.role === "presentation"
+    );
+    if (!buttontDiv) return;
+    const newButtonDiv = buttontDiv.cloneNode(false);
+    buttontDiv.parentNode?.insertBefore(newButtonDiv, buttontDiv);
+    const newButton = document.createElement("button");
+    newButton.classList = buttontDiv?.firstChild?.classList;
+    newButton.setAttribute("id", "CreateSprintPageButton");
+    newButton.addEventListener("click", () => {
+      createSprintPage();
+    });
+    const newChildNode = document.createElement("span");
+    newChildNode.classList = buttontDiv?.firstChild?.lastChild?.classList;
+    const svgNode = htmlStringToNode(
+      `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#48752C" style="">
+      <g fill="currentcolor">
+      <path d="M320-160q-33 0-56.5-23.5T240-240v-120h120v-90q-35-2-66.5-15.5T236-506v-44h-46L60-680q36-46 89-65t107-19q27 0 52.5 4t51.5 15v-55h480v520q0 50-35 85t-85 35H320Zm120-200h240v80q0 17 11.5 28.5T720-240q17 0 28.5-11.5T760-280v-440H440v24l240 240v56h-56L510-514l-8 8q-14 14-29.5 25T440-464v104ZM224-630h92v86q12 8 25 11t27 3q23 0 41.5-7t36.5-25l8-8-56-56q-29-29-65-43.5T256-684q-20 0-38 3t-36 9l42 42Zm376 350H320v40h286q-3-9-4.5-19t-1.5-21Zm-280 40v-40 40Z"></path>
+      </g>
+      </svg>`
+    );
+    newChildNode.appendChild(svgNode);
+    newButton.appendChild(newChildNode);
+    newButtonDiv.appendChild(newButton);
+  }
 }
 
 const htmlStringToNode = (str) => {
