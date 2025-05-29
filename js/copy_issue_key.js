@@ -35,8 +35,8 @@ const targetNode = () => {
 
 const changeColor = (event) => {
   const colorMode = document
-  .querySelector("html")
-  .getAttribute("data-color-mode");
+    .querySelector("html")
+    .getAttribute("data-color-mode");
   const g = targetNode()?.querySelector("g");
   if (g) {
     if (event.shiftKey && (event.altKey || event.metaKey)) {
@@ -54,7 +54,7 @@ const changeColor = (event) => {
       } else if (event.shiftKey) {
         path.style.fill = colorMode === "dark" ? "dodgerblue" : "blue";
       } else {
-        path.style.fill = "inherit";
+        path.style.fill = "currentcolor";
       }
     }
   }
