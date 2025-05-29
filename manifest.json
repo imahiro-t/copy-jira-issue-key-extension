@@ -1,7 +1,7 @@
 {
   "name": "Jira Tools",
   "description": "Jira Tools (copy issue key to clipboard, create confluence page for current sprint)",
-  "version": "1.3.3",
+  "version": "1.3.5",
   "manifest_version": 3,
   "content_scripts": [
     {
