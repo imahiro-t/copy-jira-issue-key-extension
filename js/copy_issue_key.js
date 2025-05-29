@@ -34,17 +34,28 @@ const targetNode = () => {
 };
 
 const changeColor = (event) => {
+  const colorMode = document
+  .querySelector("html")
+  .getAttribute("data-color-mode");
   const g = targetNode()?.querySelector("g");
   if (g) {
-    const colorMode = document
-      .querySelector("html")
-      .getAttribute("data-color-mode");
     if (event.shiftKey && (event.altKey || event.metaKey)) {
       g.style.color = colorMode === "dark" ? "crimson" : "red";
     } else if (event.shiftKey) {
       g.style.color = colorMode === "dark" ? "dodgerblue" : "blue";
     } else {
       g.style.color = "inherit";
+    }
+  } else {
+    const path = targetNode()?.querySelector("path");
+    if (path) {
+      if (event.shiftKey && (event.altKey || event.metaKey)) {
+        path.style.fill = colorMode === "dark" ? "crimson" : "red";
+      } else if (event.shiftKey) {
+        path.style.fill = colorMode === "dark" ? "dodgerblue" : "blue";
+      } else {
+        path.style.fill = "inherit";
+      }
     }
   }
 };
