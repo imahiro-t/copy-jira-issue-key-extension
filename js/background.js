@@ -73,7 +73,7 @@ chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   return true;
 });
 
-const SEARCH_ISSUES_MAX_RESULTS = 100;
+const SEARCH_ISSUES_MAX_RESULTS = 5000;
 
 const authorizationHeaderValue = (email, apiToken) => {
   return "Basic " + btoa(`${email}:${apiToken}`);
@@ -86,21 +86,12 @@ const getIssues = async (email, apiToken, host, projectKey) => {
     fieldsByKeys: false,
     jql: jql,
     maxResults: SEARCH_ISSUES_MAX_RESULTS,
-    startAt: 0,
   };
-  return await searchIssuesRecursive(email, apiToken, host, body, 0, []);
+  return await searchIssuesRecursive(email, apiToken, host, body, []);
 };
 
-const searchIssuesRecursive = async (
-  email,
-  apiToken,
-  host,
-  body,
-  startAt,
-  acc
-) => {
-  body.startAt = startAt;
-  const response = await fetch(`https://${host}/rest/api/3/search`, {
+const searchIssuesRecursive = async (email, apiToken, host, body, acc) => {
+  const response = await fetch(`https://${host}/rest/api/3/search/jql`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -110,13 +101,13 @@ const searchIssuesRecursive = async (
     body: JSON.stringify(body),
   });
   const json = await response.json();
-  if (json.startAt + json.maxResults < json.total) {
+  if (!json.isLast && json.nextPageToken) {
+    body["nextPageToken"] = json.nextPageToken;
     return searchIssuesRecursive(
       email,
       apiToken,
       host,
       body,
-      startAt + SEARCH_ISSUES_MAX_RESULTS,
       acc.concat(json.issues ?? [])
     );
   } else {
