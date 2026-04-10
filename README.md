@@ -3,18 +3,21 @@
 Copy Jira Issue Key to Clipboard instead of Jira Link URL on Shift + Click.
 Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift + Alt(Cmd) + Click.
 
+### 1.4.1
+
+- 🗑️ Removed background script and settings. The extension is now completely configuration-free.
+
+### 1.4.0
+
+- 🗑️ Completely removed the Confluence page creation feature.
+
 ### 1.3.6
 
 - 🐛 fix to show default link color for new layout
 
-### 1.3.5
-
-- 🐛 fix to change link color on mouse over for new layout
-- 🐛 fix to show CreateSprintPageButton for new layout
-
 ### 1.3.4
 
-- 🐛 fix to show CreateSprintPageButton
+- 🐛 fix to show default link color for new layout
 
 ### 1.3.3
 
@@ -23,14 +26,6 @@ Copy Jira Issue Key and Summary to Clipboard instead of Jira Link URL on Shift +
 ### 1.3.2
 
 - ✨ Implemented display of line-separated goals in split information panels✨ Implemented display of line-separated goals in split information panels
-
-### 1.3.1
-
-- 🐛 fix to create page by new editor mode
-
-### 1.3.0
-
-- ✨ Create confluence page for Current Sprint
 
 ### 1.2.4
 
