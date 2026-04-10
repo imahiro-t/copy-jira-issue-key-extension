@@ -82,13 +82,9 @@ const writeToClipboard = (text) => {
 };
 
 const findIssueKey = (node) => {
-  return node.closest(".issue_view_permalink_button_wrapper")
-    ?.previousElementSibling?.textContent;
+  return document.querySelector('[data-testid="issue.views.issue-base.foundation.breadcrumbs.current-issue.item"]')?.textContent;
 };
 
 const findIssueSummary = (node) => {
-  return node
-    .closest("#jira-issue-header")
-    ?.nextElementSibling?.querySelector("form")
-    ?.querySelector('[role="presentation"]')?.textContent;
+  return document.querySelector('[data-testid="issue.views.issue-base.foundation.summary.heading"]')?.textContent;
 };
